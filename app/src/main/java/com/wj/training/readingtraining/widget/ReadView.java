@@ -2,38 +2,29 @@ package com.wj.training.readingtraining.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wj.training.readingtraining.R;
+import com.wj.training.readingtraining.util.PxDpUtil;
 
 /**
  * Created by jfdeng@grandstream.cn on 18-8-1.
  */
 
-public class ReadView extends RelativeLayout {
+public class ReadView extends ViewGroup {
 
     Animation animation;
-
     private TextView mContent;
     private TextView mInfo;
     private ImageView mImage;
-
-    private int screenHight;
-
-    long SLEEP_TIME = 1000;
-    long ANIMATION_TIME = 3000;
 
     public ReadView(Context context) {
         super(context);
@@ -50,62 +41,67 @@ public class ReadView extends RelativeLayout {
         init(attrs);
     }
 
-    private void init(AttributeSet attrs) {
-        View root = LayoutInflater.from(getContext()).inflate(R.layout.read_layout, this);
-        initView(root);
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        final int count = getChildCount();
+        Log.i("jeff", "onMeasure count="+count);
+        if (count > 0) {
+            measureChildren(widthMeasureSpec, heightMeasureSpec);
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
+        final int count = getChildCount();
+        if (count > 0) {
+            for (int j = 0; j < count; j++) {
+                View view = getChildAt(j);
+                if (j == count - 1) {
+                    view.layout(0, -view.getMeasuredHeight(), view.getMeasuredWidth(), 0);
+                } else {
+                    view.layout(i, i1, view.getMeasuredWidth(), i1+view.getMeasuredHeight());
+                    i1 += view.getMeasuredHeight();
+                }
+            }
+        }
+        Log.i("jeff", "onLayout left="+i+",top="+i1+",right="+i2+",bottom="+i3);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.i("jeff", "onDraw");
     }
 
-    public void startAnimation(){
+    private void init(AttributeSet attrs) {
+        View rootView = LayoutInflater.from(getContext()).inflate(R.layout.read_layout, this);
+        mContent = rootView.findViewById(R.id.content);
+        mImage = rootView.findViewById(R.id.image);
+        mInfo = rootView.findViewById(R.id.info);
+        animation = new TranslateAnimation(0, 0, 0, getResources().getDimension(R.dimen.image_height));
+        animation.setDuration(500);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        Log.i("jeff", "onFinishInflate");
+    }
+
+    public void startAnimation() {
         mImage.startAnimation(animation);
-//        mContent.startAnimation(animation);
     }
 
-    public void stopAnimation(){
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+        Log.i("jeff", "onWindowFocusChanged");
     }
 
-    public void resetAnimation(){
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        Log.i("jeff", "onSizeChanged");
     }
-
-    class AnimationThread implements Runnable{
-        @Override
-        public void run() {
-            while (true){
-                try {
-                    Thread.sleep(SLEEP_TIME);
-
-                    postInvalidate();
-                    mImage.setAnimation(animation);
-                    animation.start();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    private void initView(View root) {
-        mContent = root.findViewById(R.id.content);
-        mInfo = root.findViewById(R.id.info);
-        mImage = root.findViewById(R.id.image);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            getDisplay().getMetrics(displayMetrics);
-            screenHight = displayMetrics.heightPixels;
-        }else {
-            WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-            windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-            screenHight = displayMetrics.heightPixels;
-        }
-        Log.d(this.getClass().getName(),screenHight+"");
-//        new Thread(new AnimationThread()).start();
-        animation = new TranslateAnimation(0,0,0,screenHight);
-        animation.setDuration(ANIMATION_TIME);
-    }
-
-
 }
