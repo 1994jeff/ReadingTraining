@@ -1,5 +1,6 @@
 package com.wj.training.readingtraining.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -36,7 +37,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
-
+                startActivity(new Intent(this,MainActivity.class));
                 break;
         }
     }

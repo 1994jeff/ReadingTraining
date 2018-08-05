@@ -18,6 +18,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-        getWindow().getDecorView().setBackground(getResources().getDrawable(R.drawable.ic_launcher_foreground));
+//        getWindow().getDecorView().setBackground(getResources().getDrawable(R.drawable.ic_launcher_foreground));
     }
 }
