@@ -26,6 +26,9 @@ public class ReadView extends ViewGroup {
     private TextView mInfo;
     private ImageView mImage;
 
+    Integer readNum = new Integer(0);
+    Integer readCount = new Integer(0);
+
     public ReadView(Context context) {
         super(context);
         init(null);
@@ -79,8 +82,36 @@ public class ReadView extends ViewGroup {
         mContent = rootView.findViewById(R.id.content);
         mImage = rootView.findViewById(R.id.image);
         mInfo = rootView.findViewById(R.id.info);
+        mInfo.setText("已阅读阅读字数："+readNum+",已翻页数："+readCount);
         animation = new TranslateAnimation(0, 0, 0, getResources().getDimension(R.dimen.image_height));
-        animation.setDuration(500);
+        animation.setDuration(1000);
+        animation.setStartOffset(500);
+        animation.setFillAfter(false);//保持移动后位置
+        animation.setFillBefore(true);
+//        animation.setRepeatMode(Animation.REVERSE);//倒序重复，顺序重复
+        animation.setRepeatCount(Animation.INFINITE);//播放次数
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Log.i("jeff","onAnimationStart");
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Log.i("jeff","onAnimationEnd");
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                Log.i("jeff","onAnimationRepeat");
+                if(readCount<10){
+                    readNum+=mContent.getText().length();
+                    readCount++;
+                    mInfo.setText("已阅读阅读字数："+readNum+",已翻页数："+readCount);
+                }else {
+                    mContent.setText("");
+                    mImage.clearAnimation();
+                }
+            }
+        });
     }
 
     @Override
@@ -103,5 +134,9 @@ public class ReadView extends ViewGroup {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         Log.i("jeff", "onSizeChanged");
+    }
+
+    public void stopAnimation() {
+        mImage.clearAnimation();
     }
 }
