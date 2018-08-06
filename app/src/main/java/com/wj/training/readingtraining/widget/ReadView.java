@@ -3,10 +3,12 @@ package com.wj.training.readingtraining.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -28,6 +30,7 @@ public class ReadView extends ViewGroup {
 
     Integer readNum = new Integer(0);
     Integer readCount = new Integer(0);
+    private DisplayMetrics metrics = new DisplayMetrics();
 
     public ReadView(Context context) {
         super(context);
@@ -83,7 +86,9 @@ public class ReadView extends ViewGroup {
         mImage = rootView.findViewById(R.id.image);
         mInfo = rootView.findViewById(R.id.info);
         mInfo.setText("已阅读阅读字数："+readNum+",已翻页数："+readCount);
-        animation = new TranslateAnimation(0, 0, 0, getResources().getDimension(R.dimen.image_height));
+        WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        animation = new TranslateAnimation(0, 0, 0, metrics.heightPixels);
         animation.setDuration(1000);
         animation.setStartOffset(500);
         animation.setFillAfter(false);//保持移动后位置
