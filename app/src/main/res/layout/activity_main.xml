@@ -20,15 +20,15 @@
             android:layout_marginTop="10dp"
             android:gravity="center">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"/>
+                android:text="@string/user_name"/>
             <EditText
                 android:id="@+id/name"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/app_name"/>
+                android:hint="@string/user_name_input"/>
         </LinearLayout>
 
         <LinearLayout
@@ -37,24 +37,41 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"/>
+                android:text="@string/user_psd"/>
             <EditText
                 android:id="@+id/pwd"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/app_name"/>
+                android:hint="@string/user_psd_input"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/login"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/login"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                />
+
+            <Button
+                android:id="@+id/regisiter"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                />
+
+        </LinearLayout>
     </LinearLayout>
 
 

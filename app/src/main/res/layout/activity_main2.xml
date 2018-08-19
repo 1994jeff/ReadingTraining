@@ -4,12 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context="com.wj.training.readingtraining.ui.activity.MainActivity">
 
-    <com.wj.training.readingtraining.widget.ReadView
-        android:id="@+id/readView"
+    <LinearLayout
+        android:layout_width="@dimen/list_width"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="阅读速度"/>
+        <ListView
+            android:id="@+id/speed_list"
+            android:layout_width="@dimen/list_width"
+            android:choiceMode="singleChoice"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent">
+        </ListView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.wj.training.readingtraining.widget.ReadView>
+    </RelativeLayout>
 
 </LinearLayout>

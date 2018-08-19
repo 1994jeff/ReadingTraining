@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="image_height">300dp</dimen>
+    <dimen name="list_width">100dp</dimen>
+    <dimen name="content_size">16dp</dimen>
+    <dimen name="title_size">20dp</dimen>
+    <dimen name="column_width">10dp</dimen>
+    <dimen name="grid_item_width">130dp</dimen>
 </resources>

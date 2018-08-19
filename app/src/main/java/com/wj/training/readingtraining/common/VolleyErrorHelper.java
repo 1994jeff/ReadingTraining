@@ -1,4 +1,4 @@
-package com.my.app.schoollifesystem.common;
+package com.wj.training.readingtraining.common;
 
 import android.content.Context;
 

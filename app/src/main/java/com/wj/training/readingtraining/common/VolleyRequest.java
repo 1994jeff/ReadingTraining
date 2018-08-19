@@ -1,4 +1,4 @@
-package com.my.app.schoollifesystem.common;
+package com.wj.training.readingtraining.common;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -7,6 +7,7 @@ import android.util.Log;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.wj.training.readingtraining.ReadingApplication;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
@@ -31,7 +32,7 @@ public class VolleyRequest {
      */
     public static void requestGet(Context mContext, String url, String tag, Map<String, String> map, VolleyInterface vif){
         if(!TextUtils.isEmpty(tag)){
-            MyApplication.getHttpQueue().cancelAll(tag);
+            ReadingApplication.getHttpQueue().cancelAll(tag);
         }
         if(map!=null){
             Set<String> ketList = map.keySet();
@@ -45,8 +46,8 @@ public class VolleyRequest {
         }
         mStringRequest=new StringRequest(Request.Method.GET,url,vif.loadingListener(),vif.errorListener());
         mStringRequest.setTag(tag);
-        MyApplication.getHttpQueue().add(mStringRequest);
-//        MyApplication.getHttpQueue().start();
+        ReadingApplication.getHttpQueue().add(mStringRequest);
+//        ReadingApplication.getHttpQueue().start();
     }
 
     /**
@@ -58,7 +59,7 @@ public class VolleyRequest {
      * @param vif
      */
     public static void requestPost(Context mContext, String url, String tag, final Map<String, String> params,VolleyInterface vif){
-        MyApplication.getHttpQueue().cancelAll(tag);
+        ReadingApplication.getHttpQueue().cancelAll(tag);
         mStringRequest = new StringRequest(Request.Method.POST,url, vif.loadingListener(), vif.errorListener()) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -68,8 +69,8 @@ public class VolleyRequest {
         };
 
         mStringRequest.setTag(tag);
-        MyApplication.getHttpQueue().add(mStringRequest);
-        MyApplication.getHttpQueue().start();
+        ReadingApplication.getHttpQueue().add(mStringRequest);
+        ReadingApplication.getHttpQueue().start();
 
     }
 
@@ -86,7 +87,7 @@ public class VolleyRequest {
      */
     public static void requestSpecPost(Context mContext, String url, String tag, final Map<String, String> params,
                                        VolleyInterface vif) {
-        MyApplication.getHttpQueue().cancelAll(tag);
+        ReadingApplication.getHttpQueue().cancelAll(tag);
         mStringRequest = new StringRequest(Request.Method.POST,url, vif.loadingListener(), vif.errorListener()) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -109,7 +110,7 @@ public class VolleyRequest {
         };
 
         mStringRequest.setTag(tag);
-        MyApplication.getHttpQueue().add(mStringRequest);
-        MyApplication.getHttpQueue().start();
+        ReadingApplication.getHttpQueue().add(mStringRequest);
+        ReadingApplication.getHttpQueue().start();
     }
 }

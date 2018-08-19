@@ -1,4 +1,4 @@
-package com.example.data.bean;
+package com.wj.training.readingtraining.bean;
 
 import java.io.Serializable;
 

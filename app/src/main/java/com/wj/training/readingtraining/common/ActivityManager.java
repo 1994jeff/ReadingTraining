@@ -1,8 +1,8 @@
-package com.my.app.schoollifesystem.common;
+package com.wj.training.readingtraining.common;
 
 import android.support.v4.app.Fragment;
 
-import com.my.app.schoollifesystem.base.BaseActivity;
+import com.wj.training.readingtraining.base.BaseActivity;
 
 /**
  */
@@ -15,8 +15,8 @@ public class ActivityManager {
         this.mActivity = mActivity;
     }
 
-    public void switchFragment(Fragment fragment, int title){
-        mActivity.switchFragment(fragment,title);
+    public void switchFragment(Fragment fragment){
+        mActivity.switchFragment(fragment);
     }
 
     private ActivityManager(){};
